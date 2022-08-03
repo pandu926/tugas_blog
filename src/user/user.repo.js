@@ -4,7 +4,7 @@ const getUsersAll = async() => {
     return await user.findAll();
 }
 
-const repoRegister = async(fullname, username, password) => {
+const repoRegister = async({ fullname, username, password }) => {
     return await user.create({
         fullname: fullname,
         username: username,
