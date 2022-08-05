@@ -1,14 +1,12 @@
-const service = require("./article.service");
+const con = require("./article.controller");
 const express = require("express");
+const tokenVerification = require("../middleware/tokenVerification");
 const articleRoute = express.Router();
 
-articleRoute.get("/user/:userid", async(req, res) => {
-    const user_id = req.params.userid;
-    console.log(user_id);
-    const articleAll = await service.getArticle(user_id);
-    res.json(articleAll);
-
-})
-
+articleRoute.get("/post", tokenVerification, con.getArticleAll);
+articleRoute.get("/post/:id", tokenVerification, con.getArticleSingle);
+articleRoute.post("/post/create", tokenVerification, con.createArticle);
+articleRoute.put("/post/update/:id", tokenVerification, con.upadateArticle);
+articleRoute.delete("/post/delete/:id", tokenVerification, con.deleteArticle);
 
 module.exports = articleRoute;

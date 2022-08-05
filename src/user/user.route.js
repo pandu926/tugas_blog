@@ -1,4 +1,5 @@
 const express = require("express");
+const tokenVerification = require("../middleware/tokenVerification");
 const userRoute = express.Router();
 const service = require("./user.service");
 
@@ -10,7 +11,7 @@ userRoute.post("/user/register", async(req, res) => {
     res.json(registerUser);
 });
 
-userRoute.get("/user", async(req, res) => {
+userRoute.get("/user", tokenVerification, async(req, res) => {
     const allUser = await service.getUsersAll();
     res.json(allUser);
 })
