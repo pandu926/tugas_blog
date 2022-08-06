@@ -1,20 +1,12 @@
 const express = require("express");
+const auth = require("../auth/auth.controller");
 const tokenVerification = require("../middleware/tokenVerification");
 const userRoute = express.Router();
-const service = require("./user.service");
+const con = require("./user.controller")
 
-
-userRoute.post("/user/register", async(req, res) => {
-    const { fullname, username, password } = req.body;
-    console.log(req.body);
-    const registerUser = await service.register({ fullname, username, password });
-    res.json(registerUser);
-});
-
-userRoute.get("/user", tokenVerification, async(req, res) => {
-    const allUser = await service.getUsersAll();
-    res.json(allUser);
-})
+userRoute.post("/user/register", con.registration);
+userRoute.get("/user", tokenVerification, con.fetchUser);
+userRoute.post("/user/login", auth.authentication);
 
 
 

@@ -1,11 +1,9 @@
 require("dotenv");
-const express = require("express");
-const authRoute = express.Router();
 const service = require("./auth.service");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-authRoute.post("/auth/login", async(req, res) => {
+const authentication = async(req, res) => {
     const { username, password } = await req.body;
     const userData = await service.dataUser(username);
     if (!userData) {
@@ -26,7 +24,10 @@ authRoute.post("/auth/login", async(req, res) => {
         return res.send("password salah");
     }
 
-})
+}
 
+const auth = {
+    authentication
+}
 
-module.exports = authRoute;
+module.exports = auth;

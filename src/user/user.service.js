@@ -1,6 +1,7 @@
 const repo = require("./user.repo");
 const bcrypt = require("bcrypt");
 
+
 const register = async({ fullname, username, password }) => {
     const hashPassword = await bcrypt.hash(password, 10);
     const usersExist = await repo.getUsersByUsername(username);
@@ -10,6 +11,8 @@ const register = async({ fullname, username, password }) => {
         return "user sudah ada";
     }
 }
+
+
 
 const getUsersAll = async() => {
     return await repo.getUsersAll();
